@@ -1,176 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Login System</title>
-
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
-      background-size: 400% 400%;
-      animation: gradientBG 10s ease infinite;
       height: 100vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #0a1f44, #0066ff);
+      overflow: hidden;
+      color: white;
+    }
+
+    /* Floating animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .floating {
+      position: absolute;
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+      font-size: 40px;
+    }
+
+    /* Box styling */
+    .container {
+      width: 50%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      position: relative;
     }
 
     .box {
-      display: none;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-      width: 320px;
+      width: 70%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
       text-align: center;
-      backdrop-filter: blur(5px);
-    }
-
-    .active {
-      display: block;
-      animation: fadeIn 0.6s ease;
+      animation: fadeIn 1s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
-      margin-bottom: 25px;
-      font-size: 26px;
-      color: #00ffff;
+      font-size: 28px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     input, select {
-      width: 100%;
+      width: 85%;
       padding: 10px;
       margin: 10px 0;
       border: none;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.15);
-      color: white;
-      font-size: 14px;
+      border-radius: 8px;
       outline: none;
     }
 
-    input::placeholder {
-      color: #ccc;
-    }
-
-    select {
-      color: #ccc;
-    }
-
     button {
-      margin-top: 10px;
-      width: 100%;
+      width: 90%;
       padding: 10px;
       border: none;
-      border-radius: 6px;
-      background-color: #00ffff;
-      color: #000;
+      border-radius: 8px;
+      background-color: #0066ff;
+      color: white;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
     }
 
     button:hover {
-      background-color: #00b3b3;
-      transform: scale(1.05);
+      background-color: #0040cc;
     }
 
-    .link-text {
-      margin-top: 15px;
+    a {
+      display: block;
+      margin-top: 10px;
+      color: #fff;
+      text-decoration: underline;
       font-size: 14px;
-      color: #ccc;
-    }
-
-    .link-text a {
-      color: #00ffff;
-      text-decoration: none;
-      font-weight: bold;
       cursor: pointer;
     }
 
-    .link-text a:hover {
-      text-decoration: underline;
+    /* Right side quotes section */
+    .quotes {
+      width: 50%;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
     }
 
-    .small-note {
-      font-size: 13px;
-      color: #aaa;
-      margin-bottom: 10px;
+    .quote {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      line-height: 1.2;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+      animation: fadeQuote 10s infinite;
+    }
+
+    @keyframes fadeQuote {
+      0%, 100% { opacity: 0; transform: translateY(20px); }
+      10%, 90% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hide all boxes by default */
+    .box { display: none; }
+    .box.active { display: block; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .container, .quotes { width: 100%; height: auto; }
+      .quotes { text-align: center; padding: 30px; }
+      .quote { font-size: 28px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN PAGE -->
-  <div class="box active" id="login-box">
-    <h2>Login</h2>
-    <input type="text" placeholder="Username or Email ID" />
-    <input type="password" placeholder="Password" />
-    <div class="link-text" style="text-align: right;">
+  <!-- Floating elements -->
+  <div class="floating" style="top:10%;left:15%;">🚀</div>
+  <div class="floating" style="top:70%;left:35%;">💼</div>
+  <div class="floating" style="top:40%;left:75%;">📈</div>
+  <div class="floating" style="top:20%;left:85%;">💡</div>
+
+  <!-- Left Side: Login / Signup -->
+  <div class="container">
+    <div class="box active" id="login-box">
+      <h2>Welcome Back!</h2>
+      <select>
+        <option value="">Select Role</option>
+        <option value="student">Student</option>
+        <option value="hod">HOD</option>
+        <option value="placement">Placement Officer</option>
+      </select>
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Password" />
+      <button>Next</button>
       <a onclick="showPage('forgot-box')">Forgot Password?</a>
+      <a onclick="showPage('signup-box')">Create Account</a>
     </div>
-    <select>
-      <option value="" disabled selected>Select Role</option>
-      <option value="student">Student</option>
-      <option value="hod">HOD</option>
-      <option value="placement">Placement Officer</option>
-    </select>
-    <button onclick="alert('Login successful! Returning to login page...')">Next</button>
-    <div class="link-text">
-      New user? <a onclick="showPage('signup-box')">Sign up</a>
+
+    <div class="box" id="signup-box">
+      <h2>Join Us</h2>
+      <select>
+        <option value="">Select Role</option>
+        <option value="student">Student</option>
+        <option value="hod">HOD</option>
+        <option value="placement">Placement Officer</option>
+      </select>
+      <input type="text" placeholder="Username" />
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+      <button>Sign Up</button>
+      <a onclick="showPage('login-box')">Already have an account?</a>
+    </div>
+
+    <div class="box" id="forgot-box">
+      <h2>Reset Password</h2>
+      <input type="email" placeholder="Enter your email" />
+      <button>Send Reset Link</button>
+      <a onclick="showPage('login-box')">Back to Login</a>
     </div>
   </div>
 
-  <!-- FORGOT PASSWORD PAGE -->
-  <div class="box" id="forgot-box">
-    <h2>Reset Password</h2>
-    <p class="small-note">Enter your registered email to receive a reset link.</p>
-    <input type="email" placeholder="Enter your email address" />
-    <button onclick="alert('Reset link sent! Returning to login page...'); showPage('login-box')">Send Reset Link</button>
-    <div class="link-text">
-      <a onclick="showPage('login-box')">← Back to Login</a>
-    </div>
-  </div>
-
-  <!-- SIGN UP PAGE -->
-  <div class="box" id="signup-box">
-    <h2>Sign Up</h2>
-    <input type="text" placeholder="Full Name" />
-    <input type="email" placeholder="Email Address" />
-    <input type="password" placeholder="Create Password" />
-    <select>
-      <option value="" disabled selected>Select Role</option>
-      <option value="student">Student</option>
-      <option value="hod">HOD</option>
-      <option value="placement">Placement Officer</option>
-    </select>
-    <button onclick="alert('Registration complete! Returning to login page...'); showPage('login-box')">Register</button>
-    <div class="link-text">
-      <a onclick="showPage('login-box')">← Back to Login</a>
-    </div>
+  <!-- Right Side: Motivational Quotes -->
+  <div class="quotes" id="quote-box">
+    <div class="quote">“Every code starts a journey.”</div>
+    <div class="quote">“Dream it. Build it. Launch it.”</div>
+    <div class="quote">“Ideas don’t wait. Start now.”</div>
+    <div class="quote">“Your startup story begins here.”</div>
   </div>
 
   <script>
-    // Function to switch between pages
-    function showPage(pageId) {
+    function showPage(id) {
       document.querySelectorAll('.box').forEach(box => box.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
+      document.getElementById(id).classList.add('active');
     }
+
+    // Quote rotation logic
+    const quotes = document.querySelectorAll('.quote');
+    let current = 0;
+    function showNextQuote() {
+      quotes.forEach((q, i) => q.style.display = i === current ? 'block' : 'none');
+      current = (current + 1) % quotes.length;
+    }
+    showNextQuote();
+    setInterval(showNextQuote, 4000);
   </script>
 
 </body>
