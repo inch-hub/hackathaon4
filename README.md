@@ -17,17 +17,10 @@
       color: white;
     }
 
-    /* Floating animations */
+    /* Floating animations (not used anymore but kept in case) */
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
-    }
-
-    .floating {
-      position: absolute;
-      opacity: 0.15;
-      animation: float 6s ease-in-out infinite;
-      font-size: 40px;
     }
 
     /* Box styling */
@@ -136,12 +129,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Floating elements -->
-  <div class="floating" style="top:10%;left:15%;">🚀</div>
-  <div class="floating" style="top:70%;left:35%;">💼</div>
-  <div class="floating" style="top:40%;left:75%;">📈</div>
-  <div class="floating" style="top:20%;left:85%;">💡</div>
 
   <!-- Left Side: Login / Signup -->
   <div class="container">
